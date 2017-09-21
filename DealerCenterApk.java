@@ -1,0 +1,138 @@
+package AndroidTest.ApkTest;
+
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+
+
+public class DealerCenterApk {
+
+  
+    private  RemoteWebDriver driver;
+
+
+    @Test
+    public void setUp() throws Exception {
+		
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("platformVersion", "4.4.2");
+        capabilities.setCapability("platformName","Android");
+        capabilities.setCapability("deviceName", "AndroidTest");
+        capabilities.setCapability("apkPackage","com.nowcom.dcmobile");
+        capabilities.setCapability("apkActivity","com.nowcom.dcmobile.screens.SplashActivity");
+        
+        driver = new RemoteWebDriver(new URL("http://127.0.0.1:8888/wd/hub"), capabilities);
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        Thread.sleep(500);
+        System.out.println("Application Opened Successfully");
+        
+        
+        WebElement EnteredUserName = driver.findElement(By.id("com.nowcom.dcmobile:id/et_username"));
+        EnteredUserName.sendKeys("siva");
+        System.out.println("UserName entered successfully");
+        
+        WebElement EnteredPassword = driver.findElement(By.id("com.nowcom.dcmobile:id/et_password"));
+        EnteredPassword.sendKeys("123abc");
+        System.out.println("Password entered successfully");
+        
+        WebElement Loginbutton = driver.findElement(By.id("com.nowcom.dcmobile:id/btn_login"));
+        Loginbutton.click();
+        System.out.println("Login button clicked");
+        
+
+        Thread.sleep(10000);
+        Thread.sleep(10000);
+        try {
+        if(driver.findElement(By.id("com.nowcom.dcmobile:id/iv_plus")).isDisplayed()) 
+        {
+        	System.out.println("Plusbutton button clicked");
+        	driver.findElement(By.id("com.nowcom.dcmobile:id/iv_plus")).click();
+        }else 
+        {
+        	System.out.println("Plusbutton button Not Present");
+        }} catch (Exception e) 
+        {
+        	System.out.println("Plusbutton button Not Present");
+        }
+        
+        WebElement EnterVIN = driver.findElement(By.id("com.nowcom.dcmobile:id/et_enterVIN"));
+        EnterVIN.sendKeys("1GNKRHKD4FJ147834");
+        System.out.println("VIN entered successfully");
+        
+        
+        WebElement ScanVIN = driver.findElement(By.id("com.nowcom.dcmobile:id/bn_buttonScan"));
+        ScanVIN.click();
+        System.out.println("ScanVIN button clicked");
+        
+         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+         
+         
+         try {
+        if(driver.findElement(By.id("com.nowcom.dcmobile:id/tv_tick_sel_trim_list_item")).isDisplayed()) 
+        {
+        	
+        	driver.findElement(By.id("com.nowcom.dcmobile:id/tv_tick_sel_trim_list_item")).click();
+        	System.out.println("Item List Present");
+         }} catch (Exception e1) {
+        	 System.out.println("Item List Not Present");
+        	 
+        	 
+        	 try { 
+        	 if(driver.findElement(By.id("com.nowcom.dcmobile:id/et_etxtdone")).isEnabled())
+             {
+             	System.out.println("Mileage textbox Present");
+             	driver.findElement(By.id("com.nowcom.dcmobile:id/et_etxtdone")).sendKeys("1000");
+             }} catch (Exception e11) {
+             	System.out.println("Mileage textbox Not Present");
+             }
+             Thread.sleep(500);   
+             
+             try { 
+             if(driver.findElement(By.id("com.nowcom.dcmobile:id/bt_addvehicleDone")).isDisplayed())
+             {
+             	System.out.println("Done button Present");
+             	driver.findElement(By.id("com.nowcom.dcmobile:id/bt_addvehicleDone")).click();
+             }} catch (Exception e12) {
+             	System.out.println("Done button Not Present");
+             }
+         }
+        for (int i =0 ; i <= 5; i++) 
+            {
+        	System.out.println("Value Of I:"+i);
+        	Thread.sleep(1000);
+        try {
+        	driver.findElementById("com.nowcom.dcmobile:id/bt_selTrimNext");
+        	driver.findElementById("com.nowcom.dcmobile:id/bt_selTrimNext").click();
+        }catch (Exception e) {
+        	System.out.println("Next Button Not Present");
+        	Thread.sleep(1000);
+        	
+        	 if(driver.findElement(By.id("com.nowcom.dcmobile:id/et_etxtdone")).isEnabled())
+             {
+             	System.out.println("Mileage textbox Present");
+             	driver.findElement(By.id("com.nowcom.dcmobile:id/et_etxtdone")).sendKeys("1000");
+             }else 
+             {
+             	System.out.println("Mileage textbox Not Present");
+             }
+             Thread.sleep(1000);      
+             if(driver.findElement(By.id("com.nowcom.dcmobile:id/bt_addvehicleDone")).isDisplayed())
+             {
+             	System.out.println("Done button Present");
+             	driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+             	driver.findElement(By.id("com.nowcom.dcmobile:id/bt_addvehicleDone")).click();
+             }else 
+             {
+             	System.out.println("Done button Not Present");
+             }
+             break;
+        }
+        }
+    }
+}
